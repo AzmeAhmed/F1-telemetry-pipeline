@@ -1,0 +1,10 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache & temporary files
+__pycache__/
+*.py[cod]
+
+# FastF1 data cache
+.fastf1/
