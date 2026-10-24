@@ -1,4 +1,5 @@
 import fastf1 
+import pandas as pd
 
 def compare_driver_laptimes(year: int, grand_prix: str, driver_a: str, driver_b: str) -> None:
     """
@@ -19,6 +20,16 @@ def compare_driver_laptimes(year: int, grand_prix: str, driver_a: str, driver_b:
     time_a = fastest_lap_a['LapTime']
     time_b = fastest_lap_b['LapTime']
 
+    # Convert sector times into timedelta format for analysis
+    s1_time_a = pd.Timedelta(fastest_lap_a['Sector1Time'])
+    s1_time_b = pd.Timedelta(fastest_lap_b['Sector1Time'])
+
+    s2_time_a = pd.Timedelta(fastest_lap_a['Sector2Time'])
+    s2_time_b = pd.Timedelta(fastest_lap_b['Sector2Time'])
+
+    s3_time_a = pd.Timedelta(fastest_lap_a['Sector3Time'])
+    s3_time_b = pd.Timedelta(fastest_lap_b['Sector3Time'])
+
     # Output individual results to stdout
     print(f"Driver {driver_a} fastest lap: {time_a}")
     print(f"Driver {driver_b} fastest lap: {time_b}")
@@ -33,6 +44,39 @@ def compare_driver_laptimes(year: int, grand_prix: str, driver_a: str, driver_b:
         print(f"ANALYSIS RESULT: {driver_b} was faster than {driver_a} by {delta.total_seconds():.3f} seconds!")
     else:
         print("ANALYSIS RESULT: Both drivers recorded the exact same lap time down to the millisecond!")
+
+
+    # Perform the mathematical comparison for Sector 1
+    if s1_time_a < s1_time_b:
+        delta = s1_time_b - s1_time_a
+        print(f"SECTOR 1 RESULT: {driver_a} was faster than {driver_b} by {delta.total_seconds():.3f} seconds!")
+    elif s1_time_b < s1_time_a:
+        delta = s1_time_a - s1_time_b
+        print(f"SECTOR 1 RESULT: {driver_b} was faster than {driver_a} by {delta.total_seconds():.3f} seconds!")
+    else:
+        print("SECTOR 1 RESULT: Both drivers recorded the exact same Sector 1 time!")
+
+
+    # Perform the mathematical comparison for Sector 2
+    if s2_time_a < s2_time_b:
+        delta = s2_time_b - s2_time_a
+        print(f"SECTOR 2 RESULT: {driver_a} was faster than {driver_b} by {delta.total_seconds():.3f} seconds!")
+    elif s2_time_b < s2_time_a:
+        delta = s2_time_a - s2_time_b
+        print(f"SECTOR 2 RESULT: {driver_b} was faster than {driver_a} by {delta.total_seconds():.3f} seconds!")
+    else:
+        print("SECTOR 2 RESULT: Both drivers recorded the exact same Sector 2 time!")
+
+
+    # Perform the mathematical comparison for Sector 3
+    if s3_time_a < s3_time_b:
+        delta = s3_time_b - s3_time_a
+        print(f"SECTOR 3 RESULT: {driver_a} was faster than {driver_b} by {delta.total_seconds():.3f} seconds!")
+    elif s3_time_b < s3_time_a:
+        delta = s3_time_a - s3_time_b
+        print(f"SECTOR 3 RESULT: {driver_b} was faster than {driver_a} by {delta.total_seconds():.3f} seconds!")
+    else:
+        print("SECTOR 3 RESULT: Both drivers recorded the exact same Sector 3 time!")
 
 
 if __name__ == '__main__':
