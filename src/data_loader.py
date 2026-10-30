@@ -1,5 +1,6 @@
 import fastf1 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def compare_driver_laptimes(year: int, grand_prix: str, driver_a: str, driver_b: str) -> None:
     """
@@ -85,3 +86,14 @@ def compare_driver_laptimes(year: int, grand_prix: str, driver_a: str, driver_b:
         print(f"SECTOR 3 RESULT: {driver_b} was faster than {driver_a} by {delta.total_seconds():.3f} seconds!")
     else:
         print("SECTOR 3 RESULT: Both drivers recorded the exact same Sector 3 time!")
+
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(telemetry_a['Distance'], telemetry_a['Speed'], label=f"{driver_a} Speed", color='blue')
+    plt.plot(telemetry_b['Distance'], telemetry_b['Speed'], label=f"{driver_b} Speed", color='red')
+    plt.xlabel("Distance (m)")
+    plt.ylabel("Speed (km/h)")
+    plt.title("Speed Comparison")
+    plt.legend()
+    plt.savefig("f1_telemetry_output.png")
+    plt.close()
